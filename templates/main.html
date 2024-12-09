@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style1.css"> -->
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Heart Disease prediction</title>
+</head>
+<body>
+    <h4>{{ result }}</h4>
+    <div class="demo-wrap">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">  
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://eu2.ca.analytics.ibm.com/bi/?perspective=dashboard&pathRef=.my_folders%2Fdashboard&action=view&mode=dashboard&subView=model0000018484c6946a_00000000">Dashboard</a>
+            </li>
+            
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="container-fluid py-3 demo-content">
+        
+        <section class="container my-2 w-50 text-light p-2" id="frmsec">
+            <header class="text-center">
+                <h1 class="display-6 text-capitalize">Patient Health Record</h1>
+            </header>
+       <form action="/predict" method="post" class="row ">
+
+        <div class="container col-md-4 col-md-offset-4 mx-3 my-2 p-2">
+        <label for="age" class="font-weight-bold">Age</label><br>
+        <input type="number" id="age" name="age"><br>
+        </div>
+
+        <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="sex" class="font-weight-bold">Sex</label><br>
+        <input type="number" id="sex" name="sex" min="0" max="1"><br>
+        <div id="sex-desc" class="form-text desc">Enter 1 for male and 0 for female</div> 
+        </div>
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="chest-pain-type" class="font-weight-bold">Chest pain type</label><br>
+        <input type="number" id="chest-pain-type" name="chest-pain-type" min="1" max="4"><br>
+        <div id="cpt-desc" class="form-text desc">1: typical angina <br> 2: atypical angina <br> 3: non-anginal pain <br> 4: asymptomatic </div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="bp" class="font-weight-bold">BP</label><br>
+        <input type="number" id="bp" name="bp"><br>
+        <div id="bp-desc" class="form-text desc">Resting blood pressure mm of Hg</div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="cholestrol" class="font-weight-bold">Cholesterol</label><br>
+        <input type="number" id="cholestrol" name="cholestrol"><br>
+        <div id="chol-desc" class="form-text desc">Serum cholesterol in mg/dl</div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="fbs" class="font-weight-bold">FBS over 120</label><br>
+        <input type="number" id="fbs" name="fbs" min="0" max="1"><br>
+        <div id="fbs-desc" class="form-text desc">Fasting blood sugar > 120 mg/dl <br>1 = true; 0 = false </div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="ekg" class="font-weight-bold">EKG results</label><br>
+        <input type="number" id="ekg" name="ekg"  min="0" max="2"><br>
+        <div id="ekg-desc" class="form-text desc">Resting electrocardiographic results <br> 0: normal <br> 1: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV) <br>  2: showing probable or definite left ventricular hypertrophy by Estes' criteria  </div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="hr" class="font-weight-bold">Max HR</label><br>
+        <input type="number" id="hr" name="hr"><br>
+        <div id="hr-desc" class="form-text desc">Maximum heart rate achieved</div>
+    </div>
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="angina" class="font-weight-bold">Exercise angina</label><br>
+        <input type="number" id="angina" name="angina" min="0" max="1"><br>
+        <div id="angina-desc" class="form-text desc">Exercise induced angina <br> 1 = yes; 0 = no </div>
+    </div>
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="stdepression" class="font-weight-bold">ST depression</label><br>
+        <input type="float" id="stdepression" name="stdepression"><br>
+        <div id="stdep-desc" class="form-text desc">ST depression induced by exercise relative to rest</div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="slopest" class="font-weight-bold"> Slope of ST</label><br>
+        <input type="number" id="slopest" name="slopest"  min="1" max="3"><br>
+        <div id="slopest-desc" class="form-text desc">Slope of the peak exercise ST segment <br> 1: upsloping <br> 2: flat <br>  3: downsloping </div>
+    </div>
+
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="fluro" class="font-weight-bold">Number of vessels fluro</label><br>
+        <input type="number" id="fluro" name="fluro" min="0" max="3"><br>
+        <div id="fluro-desc" class="form-text desc">Number of major vessels (0-3) colored by flouroscopy </div>
+    </div>
+
+    <div class="container col-md-6 col-md-offset-3 mx-3 my-2 p-2">
+        <label for="thallium" class="font-weight-bold"> Thallium</label><br>
+        <select name="thallium" id="thallium">
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+          </select>
+        <div id="thalliun-desc" class="form-text desc">3 = normal; 6 = fixed defect; 7 = reversable defect </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary px-3 text-center">Submit</button>
+    </div>
+        
+    </form> 
+        </section>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<!-- <script src="scr1.js"></script>
+<script src="scr2.js"></script> -->
+</body>
+</html>
